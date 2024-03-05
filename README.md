@@ -1,6 +1,6 @@
 # Yabai manager
 
-A simple program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar with yabai and skhd configuration.
+A simple python program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar with yabai and skhd configuration.
 
 With multiple display:
 
@@ -16,13 +16,17 @@ With single display:
 
 ## install
 
-1. Install [Yabai](https://github.com/koekeishiya/yabai)
-2. Install [skhd](https://github.com/koekeishiya/skhd)
-3. Install the configs and Yabai manager
+1. Install Python
+2. Install [Yabai](https://github.com/koekeishiya/yabai)
+3. Install [skhd](https://github.com/koekeishiya/skhd)
+4. Install the configs and Yabai manager
 
     ```bash
     git clone git@github.com:ErwinLiYH/yabai_manager.git
     cd yabai_manager
+    pip install rumps (to build status bar APP)
+    # Change the first line of yabai_manager.py and full_screen_all_windows_in_space.py
+    # to #!/usr/bin/env <your python program's path>
     ./install.sh
     ```
 
