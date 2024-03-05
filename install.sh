@@ -5,7 +5,7 @@ CONFIG_DIR="./config"
 MANAGER_DIR="./manager"
 
 # python script dictionary
-PY_DIR="~/yabai_manager"
+PY_DIR="$HOME/yabai_manager"
 
 # Installation function
 install_file() {
@@ -84,7 +84,6 @@ fi
 
 # Install manager application files
 update_python_path "$PY" "$MANAGER_DIR/toggle_space_layout.py"
-update_python_path "$PY" "$MANAGER_DIR/utils.py"
 update_python_path "$PY" "$MANAGER_DIR/yabai_manager.py"
 mkdir -p "$PY_DIR"
 install_file "$MANAGER_DIR//toggle_space_layout.py" "$PY_DIR/toggle_space_layout.py" "$method"
