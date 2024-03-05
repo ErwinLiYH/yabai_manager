@@ -1,15 +1,11 @@
 #!/usr/bin/env /opt/homebrew/Caskroom/miniconda/base/bin/python
 
-import subprocess
 import rumps
 import socket
 import threading
 import sys
-from utils import get_info, full_screen_all_windows_in_space
+from utils import get_info, toggle_space_layout, IP, PORT
 
-
-IP = 'localhost'
-PORT = 22118
 
 # init rumps app to show the space info
 class YabaiManager(rumps.App):
@@ -44,19 +40,9 @@ class YabaiManager(rumps.App):
         info = get_info()
         self.title = info
 
-    def send_update_single(self):
-        subprocess.run(f'echo "u" | nc {IP} {PORT}', shell=True)
-
-    @rumps.clicked("Toggle space to float")
+    @rumps.clicked("Toggle space layout")
     def toggle_space_to_float(self, _):
-        subprocess.run(['yabai', '-m', 'space', '--layout', 'float'])
-        full_screen_all_windows_in_space()
-        self.send_update_single()
-
-    @rumps.clicked("Toggle space to bsp")
-    def toggle_space_to_bsp(self, _):
-        subprocess.run(['yabai', '-m', 'space', '--layout', 'bsp'])
-        self.send_update_single()
+        toggle_space_layout()
 
 if __name__ == '__main__':
     mgr = YabaiManager()

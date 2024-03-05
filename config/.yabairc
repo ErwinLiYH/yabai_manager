@@ -42,7 +42,7 @@ yabai -m config                                 \
     mouse_drop_action            swap
 
 sleep 1
-/Users/yuanhaoli/yabai_manager.py &
+~/yabai_manager/yabai_manager.py &
 
 yabai -m signal --add event=space_changed action='echo "u" | nc localhost 22118'
 yabai -m signal --add event=display_changed action='echo "u" | nc localhost 22118'

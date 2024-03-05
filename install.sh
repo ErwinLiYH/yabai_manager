@@ -4,6 +4,9 @@
 CONFIG_DIR="./config"
 MANAGER_DIR="./manager"
 
+# python script dictionary
+PY_DIR="~/yabai_manager"
+
 # Installation function
 install_file() {
     src=$1
@@ -14,7 +17,7 @@ install_file() {
     if [ -e "$dest" ]; then
         echo "$dest already exists."
         read -p "Do you want to backup? (y/n): " answer
-        if [ "$answer" == "y" ]; then
+        if [ "$answer" == "y" ] || [ -z "$answer" ]; then
             backup="${dest}.backup"
             echo "Backing up $dest to $backup"
             cp -a "$dest" "$backup"
@@ -39,11 +42,51 @@ if [ "$method" != "link" ] && [ "$method" != "copy" ]; then
     exit 1
 fi
 
+update_python_path() {
+    new_path=$1
+    file=$2
+    if [ ! -f "$file" ]; then
+        echo "File does not exist: $file"
+        return 1
+    fi
+  sed -i "" "1s|#\!/usr/bin/env .*|#\!/usr/bin/env $new_path|" "$file"
+}
+
+# set python environment
+PY=$(which python3)
+echo "Do you want to use this python environemnt?"
+read -p "$PY (y/n): " answer
+if [ "$answer" == "n" ]; then
+    read -p "Enter the path to the python environment: " PY
+fi
+echo “Using $PY as the python environment.”
+
+$PY -c "import rumps" 2> /dev/null
+if [ $? -eq 0 ]; then
+    echo "rumps is already installed"
+else
+    read -p "rumps is not installed, install now? (y/n): " answer
+    if [ "$answer" == "y" ] || [ -z "$answer" ]; then
+        $PY -m pip install rumps
+    else
+        echo "Skipping the installation of rumps."
+    fi
+fi
+
 # Install configuration files
-install_file "$CONFIG_DIR/.skhdrc" "$HOME/.skhdrc" "$method"
-install_file "$CONFIG_DIR/.yabairc" "$HOME/.yabairc" "$method"
+read -p "Do you want to install config files(.skhdrc & .yabairc)? (y/n): " answer
+if [ "$answer" == "y" ] || [ -z "$answer" ]; then
+    install_file "$CONFIG_DIR/.skhdrc" "$HOME/.skhdrc" "$method"
+    install_file "$CONFIG_DIR/.yabairc" "$HOME/.yabairc" "$method"
+else
+    echo "Skipping the installation of configuration files."
+fi
 
 # Install manager application files
-install_file "$MANAGER_DIR/full_screen_all_windows_in_space.py" "$HOME/full_screen_all_windows_in_space.py" "$method"
-install_file "$MANAGER_DIR/utils.py" "$HOME/utils.py" "$method"
-install_file "$MANAGER_DIR/yabai_manager.py" "$HOME/yabai_manager.py" "$method"
+update_python_path "$PY" "$MANAGER_DIR/toggle_space_layout.py"
+update_python_path "$PY" "$MANAGER_DIR/utils.py"
+update_python_path "$PY" "$MANAGER_DIR/yabai_manager.py"
+mkdir -p "$PY_DIR"
+install_file "$MANAGER_DIR//toggle_space_layout.py" "$PY_DIR/toggle_space_layout.py" "$method"
+install_file "$MANAGER_DIR/utils.py" "$PY_DIR/utils.py" "$method"
+install_file "$MANAGER_DIR/yabai_manager.py" "$PY_DIR/yabai_manager.py" "$method"

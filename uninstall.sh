@@ -3,9 +3,9 @@
 files=(
   ".skhdrc"
   ".yabairc"
-  "full_screen_all_windows_in_space.py"
-  "utils.py"
-  "yabai_manager.py"
+  "yabai_manager/toggle_space_layout.py"
+  "yabai_manager/utils.py"
+  "yabai_manager/yabai_manager.py"
 )
 
 uninstall_file() {
@@ -26,5 +26,7 @@ uninstall_file() {
 for file in "${files[@]}"; do
     uninstall_file "$file"
 done
+
+rm -rf "$HOME/yabai_manager"
 
 echo "Uninstallation complete."

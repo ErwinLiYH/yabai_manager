@@ -1,6 +1,15 @@
 import subprocess
 import json
 
+IP = 'localhost'
+PORT = 22118
+
+def send_update_single():
+    subprocess.run(f'echo "u" | nc {IP} {PORT}', shell=True)
+
+def send_quit_single():
+    subprocess.run(f'echo "q" | nc {IP} {PORT}', shell=True)
+
 def query_windows_in_space():
     result = subprocess.run(['yabai', '-m', 'query', '--windows', '--space'], capture_output=True, text=True)
     return result.stdout
@@ -59,7 +68,19 @@ def get_info():
     else:
         return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{space_type}|"
 
+# this function is used to full screen all windows in the current space after the space layout is changed to float
+# all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
 def full_screen_all_windows_in_space():
     window_ids = [i["id"] for i in json.loads(query_windows_in_space())]
     for i in window_ids:
         subprocess.run(['yabai', '-m', 'window', str(i), '--grid', '1:1:0:0:1:1'])
+        subprocess.run(['yabai', '-m', 'window', str(i), '--sub_layer', 'normal'])
+
+def toggle_space_layout():
+    result = subprocess.run(['yabai', '-m', 'query', '--spaces', '--space'], capture_output=True, text=True)
+    space = json.loads(result.stdout)
+    if space['type'] == 'float':
+        subprocess.run(['yabai', '-m', 'space', '--layout', 'bsp'])
+    else:
+        subprocess.run(['yabai', '-m', 'space', '--layout', 'float'])
+        full_screen_all_windows_in_space()
