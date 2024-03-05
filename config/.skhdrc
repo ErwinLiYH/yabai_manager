@@ -88,7 +88,7 @@ alt - z : yabai -m window --toggle zoom-fullscreen             # toggle zoom ful
 # float -> bsp : change layout, then send update single
 # bsp -> float : change layout, full screen and set sub_layer
 # to normal for all windows, then send update single
-shift + cmd - t : ~/yabai_manager/togle_space_layout.py
+shift + cmd - t : ~/yabai_manager/toggle_space_layout.py
 
 # restart yabai (exits manager --> restarts yabai)
 shift + cmd + alt - r : echo "q" | nc localhost 22118 && yabai --restart-service
