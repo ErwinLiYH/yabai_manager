@@ -74,7 +74,7 @@ def full_screen_all_windows_in_space():
     window_ids = [i["id"] for i in json.loads(query_windows_in_space())]
     for i in window_ids:
         subprocess.run(['yabai', '-m', 'window', str(i), '--grid', '1:1:0:0:1:1'])
-        subprocess.run(['yabai', '-m', 'window', str(i), '--sub_layer', 'normal'])
+        subprocess.run(['yabai', '-m', 'window', str(i), '--layer', 'normal'])
 
 def toggle_space_layout():
     result = subprocess.run(['yabai', '-m', 'query', '--spaces', '--space'], capture_output=True, text=True)
