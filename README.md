@@ -1,6 +1,6 @@
 # Yabai manager
 
-A simple program to show basic status of Yabai WM in status bar.
+A simple program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar with yabai and skhd configuration.
 
 With multiple display:
 
@@ -16,21 +16,28 @@ With single display:
 
 ## install
 
-1. Install Yabai
-2. Install skhd
+1. Install [Yabai](https://github.com/koekeishiya/yabai)
+2. Install [skhd](https://github.com/koekeishiya/skhd)
 3. Install the configs and Yabai manager
 
     ```bash
-    git clone 
-    cd
+    git clone git@github.com:ErwinLiYH/yabai_manager.git
+    cd yabai_manager
     ./install.sh
     ```
 
-    You can select install mode, link (make soft link of all files to ~) or copy (copy all files to ~)
+    You can select install mode, `link` (make soft link of all files to ~) or `copy` (copy all files to ~)
+
+    If you want to customize it, `link` mode is recommended.
 
 ## Settings
 
 **Key binds:**
+
+1. `option - p`: toggle focused window to pip (picture in picture)
+2. `option - f`: toggle focused window to float and center it
+
+...
 
 ```bash
 # toggle single window layout
