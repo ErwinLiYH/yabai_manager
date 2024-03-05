@@ -13,6 +13,13 @@ def query_spaces():
     result = subprocess.run(['yabai', '-m', 'query', '--spaces'], capture_output=True, text=True)
     return result.stdout
 
+def query_displays():
+    result = subprocess.run(['yabai', '-m', 'query', '--displays'], capture_output=True, text=True)
+    return result.stdout
+
+def get_display_number():
+    return len(json.loads(query_displays()))
+
 def type_abreviation(type_string):
     if type_string == 'float':
         return 'F'
@@ -22,6 +29,8 @@ def type_abreviation(type_string):
         return 'U'
 
 def get_info():
+    number_of_display = get_display_number()
+
     json_str_result = query_spaces()
     spaces = json.loads(json_str_result)
     display_space_dict = {}
@@ -45,7 +54,10 @@ def get_info():
     num_of_spaces_in_display = len(display_space_dict[focus_display])
     num_of_space_in_total = len(spaces)
 
-    return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{focus_space_index}:{num_of_space_in_total}|{space_type}|"
+    if number_of_display > 1:
+        return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{focus_space_index}:{num_of_space_in_total}|{space_type}|"
+    else:
+        return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{space_type}|"
 
 def full_screen_all_windows_in_space():
     window_ids = [i["id"] for i in json.loads(query_windows_in_space())]
