@@ -79,9 +79,10 @@
 # my custom keybindings
 
 # toggle single window layout
-alt - p : yabai -m window --toggle pip
-alt - f : yabai -m window --toggle float --grid 5:5:1:1:3:3
-alt - z : yabai -m window --toggle zoom-fullscreen
+alt - p : yabai -m window --toggle pip                         # toggle picture in picture
+alt - t : yabai -m window --toggle float --grid 5:5:1:1:3:3    # toggle float and center window
+alt - f : yabai -m window --grid 1:1:0:0:1:1                   # full screen window
+alt - z : yabai -m window --toggle zoom-fullscreen             # toggle zoom fullscreen
 
 # toggle space layout
 # toggle space to float layout and full screen all windows, then updates manager
