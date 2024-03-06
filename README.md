@@ -1,6 +1,11 @@
 # Yabai manager
 
-A simple python program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar with yabai and skhd configuration.
+A simple python program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar.
+
+This program include:
+
+1. A manager: shows the information of Yabai WM
+2. Basic configuration files(.skhdrc & .yabairc) integrated with the manager
 
 With multiple display:
 
@@ -21,43 +26,32 @@ With single display:
 3. Install [skhd](https://github.com/koekeishiya/skhd)
 4. Install the configs and Yabai manager
 
+    This APP need a python environment, if you don't wan to use system python env, you should create a new environment before you run `install.sh`
+
     ```bash
     git clone git@github.com:ErwinLiYH/yabai_manager.git
     cd yabai_manager
-    pip install rumps (to build status bar APP)
-    # Change the first line of yabai_manager.py and full_screen_all_windows_in_space.py
-    # to #!/usr/bin/env <your python program's path>
     ./install.sh
     ```
 
-    You can select install mode, `link` (make soft link of all files to ~) or `copy` (copy all files to ~)
+    You can select install mode, `link` (make soft link of all files to ~) or `copy` (copy all files to ~). If you want to customize it, `link` mode is recommended.
 
-    If you want to customize it, `link` mode is recommended.
+    The install script will remind you to backup old config(.skhdrc & .yabairc) if you have, so don't worry about losting config file.
+
+    You can select whether to use my config file when install, if you chooes not to install my config file, you can build you own config files integrated with the manager according to the last section.
 
 ## Settings
 
 **Key binds:**
 
 1. `option - p`: toggle focused window to pip (picture in picture)
-2. `option - f`: toggle focused window to float and center it
-
-...
-
-```bash
-# toggle single window layout
-alt - p : yabai -m window --toggle pip
-alt - f : yabai -m window --toggle float --grid 5:5:1:1:3:3
-alt - z : yabai -m window --toggle zoom-fullscreen
-
-# toggle space layout
-# toggle space to float layout and full screen all windows, then updates manager
-shift + cmd - f : yabai -m space --layout float && ~/full_screen_all_windows_in_space.py && echo "u" | nc localhost 22118
-# toggle space to bsp layout and updates manager
-shift + cmd - t : yabai -m space --layout bsp && echo "u" | nc localhost 22118
-
-# restart yabai (exits manager --> restarts yabai)
-shift + cmd + alt - r : echo "q" | nc localhost 22118 && yabai --restart-service
-```
+2. `option - t`: toggle focused window between \<float and center\>/bsp
+3. `option - f`: toggle focused window to full screen(by grid command, used in float layout)
+4. `option - z`: toggle focused window to zoom full screen(used in bsp layout)
+5. `shift + cmd - t`: toggle layout of screen
+    float -> bsp : change layout
+    bsp -> float : change layout and full screen all windows
+6. `shift + cmd + alt - r`: restart Yabai and manager
 
 ## Customize
 
