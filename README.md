@@ -2,6 +2,8 @@
 
 A simple python program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar.
 
+![](./imgs/Screenshot%202024-03-06%20at%2000.26.46.png)
+
 This program include:
 
 1. A manager: shows the information of Yabai WM
