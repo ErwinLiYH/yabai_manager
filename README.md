@@ -11,13 +11,13 @@ This program include:
 
 With multiple display:
 
-`|<index in display of current space>|<index in total of current space>|<float or bsp of current space>|`
+`|<space index in display>:<space count in display>|<space index in total>:<space count in total>|<float('F'loat) or bsp('T'ile) of current space>|`
 
 ![](./imgs/Screenshot%202024-03-05%20at%2018.46.25.png)
 
 With single display:
 
-`|<index of current space>|<float or bsp of current space>|`
+`|<space index>:<space count>|<float('F'loat) or bsp('T'ile) of current space>|`
 
 ![](./imgs/Screenshot%202024-03-05%20at%2018.45.01.png)
 
