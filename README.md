@@ -26,7 +26,7 @@ With single display:
 3. Install [skhd](https://github.com/koekeishiya/skhd)
 4. Install the configs and Yabai manager
 
-    This APP need a python environment, if you don't want to use system python env, you should create a new virtual Python environment before running `install.sh`, and select the Python interpreter path in the environment when running `install.sh`.
+    This app requires a Python environment. If you prefer not to use the system's Python environment, you should create a new virtual Python environment before running install.sh. Then, select the Python interpreter path from this environment when running install.sh.
 
     ```bash
     git clone git@github.com:ErwinLiYH/yabai_manager.git
@@ -34,11 +34,11 @@ With single display:
     ./install.sh
     ```
 
-    You can select install mode, `link` (make soft link of all files to ~) or `copy` (copy all files to ~). If you want to customize it, `link` mode is recommended.
+    You can select the installation mode: link (creates soft links for all files to the home directory ~) or copy (copies all files to the home directory ~). If you wish to customize it, the link mode is recommended.
 
-    The install script will remind you to backup old config(.skhdrc & .yabairc) if you have, so don't worry about losting config file.
+    The installation script will prompt you to backup your existing configuration files (.skhdrc & .yabairc) if they exist, so there's no need to worry about losing your configuration files.
 
-    You can select whether to use my config file when install, if you chooes not to install my config file, you can build you own config files integrated with the manager according to the last section.
+    You have the option to use my configuration files during the installation. If you choose not to install my configuration files, you can create your own configuration files integrated with the manager, as described in the last section.
 
 ## Settings
 
@@ -49,8 +49,10 @@ With single display:
 3. `option - f`: toggle focused window to full screen(by grid command, used in float layout)
 4. `option - z`: toggle focused window to zoom full screen(used in bsp layout)
 5. `shift + cmd - t`: toggle layout of screen
+    
     float -> bsp : change layout
     bsp -> float : change layout and full screen all windows
+
 6. `shift + cmd + alt - r`: restart Yabai and manager
 
 ## Customize
