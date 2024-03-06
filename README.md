@@ -26,7 +26,7 @@ With single display:
 3. Install [skhd](https://github.com/koekeishiya/skhd)
 4. Install the configs and Yabai manager
 
-    This APP need a python environment, if you don't wan to use system python env, you should create a new environment before you run `install.sh`
+    This APP need a python environment, if you don't want to use system python env, you should create a new virtual Python environment before running `install.sh`, and select the Python interpreter path in the environment when running `install.sh`.
 
     ```bash
     git clone git@github.com:ErwinLiYH/yabai_manager.git
