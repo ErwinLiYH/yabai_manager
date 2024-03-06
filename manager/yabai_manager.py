@@ -31,7 +31,7 @@ class YabaiManager(rumps.App):
                 self.update_title()
             elif message == 'q':
                 print('quit APP')
-                sys.exit(1)
+                sys.exit()
             else:
                 print('unknown message, quit APP')
                 sys.exit(1)

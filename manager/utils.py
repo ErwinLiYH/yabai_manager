@@ -81,6 +81,8 @@ def toggle_space_layout():
     space = json.loads(result.stdout)
     if space['type'] == 'float':
         subprocess.run(['yabai', '-m', 'space', '--layout', 'bsp'])
+        send_update_single()
     else:
         subprocess.run(['yabai', '-m', 'space', '--layout', 'float'])
         full_screen_all_windows_in_space()
+        send_update_single()
