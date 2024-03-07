@@ -30,18 +30,9 @@ def query_displays():
 def for_all_windows_id_in_space(func):
     @wraps(func)
     def wrapper():
-        window_ids = [i["id"] for i in query_windows_in_space()]
-        for i in window_ids:
-            func(str(i))
-    return wrapper
-
-def for_all_windows_id_in_space_except_focused(func):
-    @wraps(func)
-    def wrapper():
         windows = query_windows_in_space()
         for i in windows:
-            if i["has-focus"] != True:
-                func(str(i))
+            func(i)
     return wrapper
 
 def get_display_number():
@@ -89,8 +80,8 @@ def get_info():
 # all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
 @for_all_windows_id_in_space
 def fullscreen_layernormal_all_windows_in_space(i):
-    subprocess.run(['yabai', '-m', 'window', i, '--grid', '1:1:0:0:1:1'])
-    subprocess.run(['yabai', '-m', 'window', i, '--layer', 'normal'])
+    subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--grid', '1:1:0:0:1:1'])
+    subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--layer', 'normal'])
 
 def toggle_space_layout():
     space = query_focus_sapce()
@@ -101,3 +92,13 @@ def toggle_space_layout():
         subprocess.run(['yabai', '-m', 'space', '--layout', 'float'])
         fullscreen_layernormal_all_windows_in_space()
         send_update_single()
+
+@for_all_windows_id_in_space
+def minimize_all_windows_in_space_except_focused(i):
+    if i["has-focus"] != True:
+        subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--minimize'])
+
+@for_all_windows_id_in_space
+def deminimize_all_windows_in_space(i):
+    if i["is-minimized"] == True:
+        subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--deminimize'])
