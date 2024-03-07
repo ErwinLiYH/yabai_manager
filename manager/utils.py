@@ -12,22 +12,22 @@ def send_quit_single():
 
 def query_windows_in_space():
     result = subprocess.run(['yabai', '-m', 'query', '--windows', '--space'], capture_output=True, text=True)
-    return result.stdout
+    return json.loads(result.stdout)
 
 def query_focus_sapce():
     result = subprocess.run(['yabai', '-m', 'query', '--spaces', '--space'], capture_output=True, text=True)
-    return result.stdout
+    return json.loads(result.stdout)
 
 def query_spaces():
     result = subprocess.run(['yabai', '-m', 'query', '--spaces'], capture_output=True, text=True)
-    return result.stdout
+    return json.loads(result.stdout)
 
 def query_displays():
     result = subprocess.run(['yabai', '-m', 'query', '--displays'], capture_output=True, text=True)
-    return result.stdout
+    return json.loads(result.stdout)
 
 def get_display_number():
-    return len(json.loads(query_displays()))
+    return len(query_displays())
 
 def type_abreviation(type_string):
     if type_string == 'float':
@@ -40,8 +40,7 @@ def type_abreviation(type_string):
 def get_info():
     number_of_display = get_display_number()
 
-    json_str_result = query_spaces()
-    spaces = json.loads(json_str_result)
+    spaces = query_spaces()
     display_space_dict = {}
 
     # create a dictionary to store each display's space index
@@ -55,7 +54,7 @@ def get_info():
     for display in display_space_dict:
         display_space_dict[display].sort()
 
-    focus_space = json.loads(query_focus_sapce())
+    focus_space = query_focus_sapce()
     space_type = type_abreviation(focus_space['type'])
     focus_space_index = focus_space['index']
     focus_display = focus_space['display']
@@ -71,14 +70,13 @@ def get_info():
 # this function is used to full screen all windows in the current space after the space layout is changed to float
 # all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
 def full_screen_all_windows_in_space():
-    window_ids = [i["id"] for i in json.loads(query_windows_in_space())]
+    window_ids = [i["id"] for i in query_windows_in_space()]
     for i in window_ids:
         subprocess.run(['yabai', '-m', 'window', str(i), '--grid', '1:1:0:0:1:1'])
         subprocess.run(['yabai', '-m', 'window', str(i), '--layer', 'normal'])
 
 def toggle_space_layout():
-    result = subprocess.run(['yabai', '-m', 'query', '--spaces', '--space'], capture_output=True, text=True)
-    space = json.loads(result.stdout)
+    space = query_focus_sapce()
     if space['type'] == 'float':
         subprocess.run(['yabai', '-m', 'space', '--layout', 'bsp'])
         send_update_single()
