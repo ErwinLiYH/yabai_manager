@@ -90,5 +90,11 @@ alt - z : yabai -m window --toggle zoom-fullscreen             # toggle zoom ful
 # to normal for all windows, then send update single
 shift + cmd - t : ~/yabai_manager/toggle_space_layout.py
 
+# minimize all windows except focused
+shift + cmd - s : ~/yabai_manager/minimize_all_windows_in_space_except_focused.py
+
+# deminimize all minimized windows back to the focused window
+shift + cmd - w : ~/yabai_manager/deminimize_all_windows_in_space_foucus_original.py
+
 # restart yabai (exits manager --> restarts yabai)
 shift + cmd + alt - r : echo "q" | nc localhost 22118 && yabai --restart-service

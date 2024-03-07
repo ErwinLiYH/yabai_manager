@@ -1,9 +1,11 @@
 import subprocess
 import json
 from functools import wraps
+import time
 
 IP = 'localhost'
 PORT = 22118
+MINIMIZE_ANIME_TIME = 0.5
 
 def send_update_single():
     subprocess.run(f'echo "u" | nc {IP} {PORT}', shell=True)
@@ -34,6 +36,10 @@ def for_all_windows_id_in_space(func):
         for i in windows:
             func(i)
     return wrapper
+
+def get_focused_window_id():
+    result = subprocess.run(['yabai', '-m', 'query', '--windows', '--window'], capture_output=True, text=True)
+    return json.loads(result.stdout)['id']
 
 def get_display_number():
     return len(query_displays())
@@ -96,9 +102,15 @@ def toggle_space_layout():
 @for_all_windows_id_in_space
 def minimize_all_windows_in_space_except_focused(i):
     if i["has-focus"] != True:
-        subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--minimize'])
+        subprocess.run(['yabai', '-m', 'window', '--minimize', str(i["id"])])
 
 @for_all_windows_id_in_space
 def deminimize_all_windows_in_space(i):
     if i["is-minimized"] == True:
-        subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--deminimize'])
+        subprocess.run(['yabai', '-m', 'window', '--deminimize', str(i["id"])])
+
+def deminimize_all_windows_in_space_foucus_original():
+    focused_id = get_focused_window_id()
+    deminimize_all_windows_in_space()
+    time.sleep(MINIMIZE_ANIME_TIME)
+    subprocess.run(['yabai', '-m', 'window', '--focus', str(focused_id)])

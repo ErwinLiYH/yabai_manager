@@ -83,9 +83,17 @@ else
 fi
 
 # Install manager application files
-update_python_path "$PY" "$MANAGER_DIR/toggle_space_layout.py"
-update_python_path "$PY" "$MANAGER_DIR/yabai_manager.py"
 mkdir -p "$PY_DIR"
-install_file "$MANAGER_DIR//toggle_space_layout.py" "$PY_DIR/toggle_space_layout.py" "$method"
 install_file "$MANAGER_DIR/utils.py" "$PY_DIR/utils.py" "$method"
+
+update_python_path "$PY" "$MANAGER_DIR/yabai_manager.py"
 install_file "$MANAGER_DIR/yabai_manager.py" "$PY_DIR/yabai_manager.py" "$method"
+
+update_python_path "$PY" "$MANAGER_DIR/toggle_space_layout.py"
+install_file "$MANAGER_DIR//toggle_space_layout.py" "$PY_DIR/toggle_space_layout.py" "$method"
+
+update_python_path "$PY" "$MANAGER_DIR/minimize_all_windows_in_space_except_focused.py"
+install_file "$MANAGER_DIR/minimize_all_windows_in_space_except_focused.py" "$PY_DIR/minimize_all_windows_in_space_except_focused.py" "$method"
+
+update_python_path "$PY" "$MANAGER_DIR/deminimize_all_windows_in_space_foucus_original.py"
+install_file "$MANAGER_DIR//deminimize_all_windows_in_space_foucus_original.py" "$PY_DIR/deminimize_all_windows_in_space_foucus_original.py" "$method"
