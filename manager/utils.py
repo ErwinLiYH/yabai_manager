@@ -27,6 +27,15 @@ def query_displays():
     result = subprocess.run(['yabai', '-m', 'query', '--displays'], capture_output=True, text=True)
     return json.loads(result.stdout)
 
+def for_all_windows_id_in_space(func):
+    @wraps(func)
+    def wrapper():
+        window_ids = [i["id"] for i in query_windows_in_space()]
+        for i in window_ids:
+            func(str(i))
+        send_update_single()
+    return wrapper
+
 def get_display_number():
     return len(query_displays())
 
@@ -67,15 +76,6 @@ def get_info():
         return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{focus_space_index}:{num_of_space_in_total}|{space_type}|"
     else:
         return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{space_type}|"
-
-def for_all_windows_id_in_space(func):
-    @wraps(func)
-    def wrapper():
-        window_ids = [i["id"] for i in query_windows_in_space()]
-        for i in window_ids:
-            func(str(i))
-        send_update_single()
-    return wrapper
 
 # this function is used to full screen all windows in the current space after the space layout is changed to float
 # all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
