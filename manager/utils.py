@@ -1,5 +1,6 @@
 import subprocess
 import json
+from functools import wraps
 
 IP = 'localhost'
 PORT = 22118
@@ -67,13 +68,21 @@ def get_info():
     else:
         return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{space_type}|"
 
+def for_all_windows_id_in_space(func):
+    @wraps(func)
+    def wrapper():
+        window_ids = [i["id"] for i in query_windows_in_space()]
+        for i in window_ids:
+            func(str(i))
+        send_update_single()
+    return wrapper
+
 # this function is used to full screen all windows in the current space after the space layout is changed to float
 # all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
-def full_screen_all_windows_in_space():
-    window_ids = [i["id"] for i in query_windows_in_space()]
-    for i in window_ids:
-        subprocess.run(['yabai', '-m', 'window', str(i), '--grid', '1:1:0:0:1:1'])
-        subprocess.run(['yabai', '-m', 'window', str(i), '--layer', 'normal'])
+@for_all_windows_id_in_space
+def fullscreen_layernormal_all_windows_in_space(i):
+    subprocess.run(['yabai', '-m', 'window', i, '--grid', '1:1:0:0:1:1'])
+    subprocess.run(['yabai', '-m', 'window', i, '--layer', 'normal'])
 
 def toggle_space_layout():
     space = query_focus_sapce()
@@ -82,5 +91,5 @@ def toggle_space_layout():
         send_update_single()
     else:
         subprocess.run(['yabai', '-m', 'space', '--layout', 'float'])
-        full_screen_all_windows_in_space()
+        fullscreen_layernormal_all_windows_in_space()
         send_update_single()
