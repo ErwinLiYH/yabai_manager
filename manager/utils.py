@@ -33,7 +33,15 @@ def for_all_windows_id_in_space(func):
         window_ids = [i["id"] for i in query_windows_in_space()]
         for i in window_ids:
             func(str(i))
-        send_update_single()
+    return wrapper
+
+def for_all_windows_id_in_space_except_focused(func):
+    @wraps(func)
+    def wrapper():
+        windows = query_windows_in_space()
+        for i in windows:
+            if i["has-focus"] != True:
+                func(str(i))
     return wrapper
 
 def get_display_number():
