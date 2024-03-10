@@ -1,10 +1,9 @@
-#!/usr/bin/env /opt/homebrew/Caskroom/miniconda/base/bin/python
-
 import rumps
 import socket
 import threading
 import sys
-from utils import get_info, toggle_space_layout, IP, PORT
+from utils import get_info, toggle_space_layout, IP, PORT,\
+minimize_all_windows_in_space, deminimize_all_windows_in_space
 
 
 # init rumps app to show the space info
@@ -43,6 +42,14 @@ class YabaiManager(rumps.App):
     @rumps.clicked("Toggle space layout")
     def toggle_space_to_float(self, _):
         toggle_space_layout()
+
+    @rumps.clicked("Deminimize all windos")
+    def deminimize_all_windows(self, _):
+        deminimize_all_windows_in_space()
+
+    @rumps.clicked("Minimize all windows")
+    def minimize_all_windows(self, _):
+        minimize_all_windows_in_space()
 
 if __name__ == '__main__':
     mgr = YabaiManager()

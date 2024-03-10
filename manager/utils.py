@@ -7,11 +7,15 @@ IP = 'localhost'
 PORT = 22118
 MINIMIZE_ANIME_TIME = 0.5
 
+# Functions to send signal to the rumps app to update the title-------------------------------------
+
 def send_update_single():
     subprocess.run(f'echo "u" | nc {IP} {PORT}', shell=True)
 
 def send_quit_single():
     subprocess.run(f'echo "q" | nc {IP} {PORT}', shell=True)
+
+# Functions to query yabai--------------------------------------------------------------------------
 
 def query_windows_in_space():
     result = subprocess.run(['yabai', '-m', 'query', '--windows', '--space'], capture_output=True, text=True)
@@ -29,6 +33,10 @@ def query_displays():
     result = subprocess.run(['yabai', '-m', 'query', '--displays'], capture_output=True, text=True)
     return json.loads(result.stdout)
 
+def get_focused_window_id():
+    result = subprocess.run(['yabai', '-m', 'query', '--windows', '--window'], capture_output=True, text=True)
+    return json.loads(result.stdout)['id']
+
 def for_all_windows_id_in_space(func):
     @wraps(func)
     def wrapper():
@@ -36,10 +44,6 @@ def for_all_windows_id_in_space(func):
         for i in windows:
             func(i)
     return wrapper
-
-def get_focused_window_id():
-    result = subprocess.run(['yabai', '-m', 'query', '--windows', '--window'], capture_output=True, text=True)
-    return json.loads(result.stdout)['id']
 
 def get_display_number():
     return len(query_displays())
@@ -99,18 +103,20 @@ def toggle_space_layout():
         fullscreen_layernormal_all_windows_in_space()
         send_update_single()
 
-@for_all_windows_id_in_space
-def minimize_all_windows_in_space_except_focused(i):
-    if i["has-focus"] != True:
-        subprocess.run(['yabai', '-m', 'window', '--minimize', str(i["id"])])
+def minimize_all_windows_in_space(except_focus=True):
+    @for_all_windows_id_in_space
+    def __minimize_all_windows_in_space(i):
+        if (i["has-focus"] == False) or (except_focus == False):
+            subprocess.run(['yabai', '-m', 'window', '--minimize', str(i["id"])])
+    __minimize_all_windows_in_space()
 
-@for_all_windows_id_in_space
-def deminimize_all_windows_in_space(i):
-    if i["is-minimized"] == True:
-        subprocess.run(['yabai', '-m', 'window', '--deminimize', str(i["id"])])
-
-def deminimize_all_windows_in_space_foucus_original():
+def deminimize_all_windows_in_space(refocus=True):
+    @for_all_windows_id_in_space
+    def __deminimize_all_windows_in_space(i):
+        if i["is-minimized"] == True:
+            subprocess.run(['yabai', '-m', 'window', '--deminimize', str(i["id"])])
     focused_id = get_focused_window_id()
-    deminimize_all_windows_in_space()
-    time.sleep(MINIMIZE_ANIME_TIME)
-    subprocess.run(['yabai', '-m', 'window', '--focus', str(focused_id)])
+    __deminimize_all_windows_in_space()
+    if refocus:
+        time.sleep(MINIMIZE_ANIME_TIME)
+        subprocess.run(['yabai', '-m', 'window', '--focus', str(focused_id)])
