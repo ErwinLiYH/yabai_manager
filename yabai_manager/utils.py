@@ -93,14 +93,21 @@ def fullscreen_layernormal_all_windows_in_space(i):
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--grid', '1:1:0:0:1:1'])
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--layer', 'normal'])
 
-def toggle_space_layout():
+@for_all_windows_id_in_space
+def layernormal_all_windows_in_space(i):
+    subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--layer', 'normal'])
+
+def toggle_space_layout(float2max=True):
     space = query_focus_sapce()
     if space['type'] == 'float':
         subprocess.run(['yabai', '-m', 'space', '--layout', 'bsp'])
         send_update_single()
     else:
         subprocess.run(['yabai', '-m', 'space', '--layout', 'float'])
-        fullscreen_layernormal_all_windows_in_space()
+        if float2max:
+            fullscreen_layernormal_all_windows_in_space()
+        else:
+            layernormal_all_windows_in_space()
         send_update_single()
 
 def minimize_all_windows_in_space(except_focus=True):
