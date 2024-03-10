@@ -37,24 +37,8 @@ def get_focused_window_id():
     result = subprocess.run(['yabai', '-m', 'query', '--windows', '--window'], capture_output=True, text=True)
     return json.loads(result.stdout)['id']
 
-def for_all_windows_in_space(func):
-    @wraps(func)
-    def wrapper():
-        windows = query_windows_in_space()
-        for i in windows:
-            func(i)
-    return wrapper
-
 def get_display_number():
     return len(query_displays())
-
-def type_abreviation(type_string):
-    if type_string == 'float':
-        return 'F'
-    elif type_string == 'bsp':
-        return 'T'
-    else:
-        return 'U'
 
 def get_info():
     number_of_display = get_display_number()
@@ -86,16 +70,39 @@ def get_info():
     else:
         return f"|{focus_space_index_in_display+1}:{num_of_spaces_in_display}|{space_type}|"
 
-# this function is used to full screen all windows in the current space after the space layout is changed to float
-# all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
+# utils functions-----------------------------------------------------------------------------------
+
+def for_all_windows_in_space(func):
+    @wraps(func)
+    def wrapper():
+        windows = query_windows_in_space()
+        for i in windows:
+            func(i)
+    return wrapper
+
+def type_abreviation(type_string):
+    if type_string == 'float':
+        return 'F'
+    elif type_string == 'bsp':
+        return 'T'
+    else:
+        return 'U'
+
 @for_all_windows_in_space
 def fullscreen_layernormal_all_windows_in_space(i):
+    """
+    this function is used to full screen all windows in the current space after the space layout is changed to float
+    all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
+    """
+
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--grid', '1:1:0:0:1:1'])
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--layer', 'normal'])
 
 @for_all_windows_in_space
 def layernormal_all_windows_in_space(i):
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--layer', 'normal'])
+
+# Functions to manage yabai-------------------------------------------------------------------------
 
 def toggle_space_layout(float2max=True):
     space = query_focus_sapce()
