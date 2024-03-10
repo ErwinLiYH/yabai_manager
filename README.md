@@ -2,12 +2,17 @@
 
 A simple python program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar.
 
-![](./imgs/Screenshot%202024-03-06%20at%2000.26.46.png)
+![](./imgs/Screenshot%202024-03-10%20at%2019.49.38.png)
 
 This program include:
 
-1. A manager: shows the information of Yabai WM
-2. Basic configuration files(.skhdrc & .yabairc) integrated with the manager
+1. Three high-level interfaces to control Yabai's behavior
+    1. Minimize all windows in the space (except the focused window)
+    2. Deminimize all windows in the space (then refocus to original window)
+    3. Toggle space's layout between bsp and float(, and maximize all windows after transferred to float layout)
+2. A manager in GUI: shows the information of Yabai WM and calls these high-level interfaces
+3. A manager in CLI: calls these high-level interfaces
+4. Default configuration files(.skhdrc & .yabairc) integrated with the manager
 
 With multiple display:
 
@@ -28,19 +33,23 @@ With single display:
 3. Install [skhd](https://github.com/koekeishiya/skhd)
 4. Install the configs and Yabai manager
 
-    This app requires a Python environment. If you prefer not to use the system's Python environment, you should create a new virtual Python environment before running install.sh. Then, select the Python interpreter path from this environment when running install.sh.
+    This app requires a Python environment. If you prefer not to use the system's Python environment, you should create a new virtual Python environment.
 
     ```bash
     git clone git@github.com:ErwinLiYH/yabai_manager.git
     cd yabai_manager
-    ./install.sh
+
+    pip install -e .
+
+    # optional
+    cp default_config/.skhdrc ~/.skhdrc
+    cp default_config/.yabairc ~/.yabairc
+
+    #or
+
+    ln -s default_config/.skhdrc ~/.skhdrc
+    ln -s default_config/.yabairc ~/.yabairc
     ```
-
-    You can select the installation mode: link (creates soft links for all files to the home directory ~) or copy (copies all files to the home directory ~). If you wish to customize it, the link mode is recommended.
-
-    The installation script will prompt you to backup your existing configuration files (.skhdrc & .yabairc) if they exist, so there's no need to worry about losing your configuration files.
-
-    You have the option to use my configuration files during the installation. If you choose not to install my configuration files, you can create your own configuration files integrated with the manager, as described in the last section.
 
 ## Settings
 
