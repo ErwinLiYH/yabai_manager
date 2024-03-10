@@ -1,4 +1,5 @@
 from . import utils
+from .yabai_manager import YabaiManager
 import argparse
 
 def main():
@@ -24,7 +25,7 @@ def main():
 
     # GUI commands
     if args.startGUI:
-        mgr = utils.YabaiManager()
+        mgr = YabaiManager()
         mgr.run()
 
     if args.quitGUI:
@@ -32,7 +33,7 @@ def main():
 
     if args.restartGUI:
         utils.send_quit_single()
-        mgr = utils.YabaiManager()
+        mgr = YabaiManager()
         mgr.run()
 
     # windows commands
