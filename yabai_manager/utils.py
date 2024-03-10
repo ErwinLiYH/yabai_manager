@@ -37,7 +37,7 @@ def get_focused_window_id():
     result = subprocess.run(['yabai', '-m', 'query', '--windows', '--window'], capture_output=True, text=True)
     return json.loads(result.stdout)['id']
 
-def for_all_windows_id_in_space(func):
+def for_all_windows_in_space(func):
     @wraps(func)
     def wrapper():
         windows = query_windows_in_space()
@@ -88,12 +88,12 @@ def get_info():
 
 # this function is used to full screen all windows in the current space after the space layout is changed to float
 # all windows created in bsp layout have a sub_layer of below, so we need to change it to normal
-@for_all_windows_id_in_space
+@for_all_windows_in_space
 def fullscreen_layernormal_all_windows_in_space(i):
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--grid', '1:1:0:0:1:1'])
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--layer', 'normal'])
 
-@for_all_windows_id_in_space
+@for_all_windows_in_space
 def layernormal_all_windows_in_space(i):
     subprocess.run(['yabai', '-m', 'window', str(i["id"]), '--layer', 'normal'])
 
@@ -111,14 +111,14 @@ def toggle_space_layout(float2max=True):
         send_update_single()
 
 def minimize_all_windows_in_space(except_focus=True):
-    @for_all_windows_id_in_space
+    @for_all_windows_in_space
     def __minimize_all_windows_in_space(i):
         if (i["has-focus"] == False) or (except_focus == False):
             subprocess.run(['yabai', '-m', 'window', '--minimize', str(i["id"])])
     __minimize_all_windows_in_space()
 
 def deminimize_all_windows_in_space(refocus=True):
-    @for_all_windows_id_in_space
+    @for_all_windows_in_space
     def __deminimize_all_windows_in_space(i):
         if i["is-minimized"] == True:
             subprocess.run(['yabai', '-m', 'window', '--deminimize', str(i["id"])])
