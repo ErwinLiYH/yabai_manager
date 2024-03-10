@@ -88,13 +88,16 @@ alt - z : yabai -m window --toggle zoom-fullscreen             # toggle zoom ful
 # float -> bsp : change layout, then send update single
 # bsp -> float : change layout, full screen and set sub_layer
 # to normal for all windows, then send update single
-shift + cmd - t : ~/yabai_manager/toggle_space_layout.py
+shift + cmd - t : yabai-manager-cli space --toggle --float2max
 
 # minimize all windows except focused
-shift + cmd - s : ~/yabai_manager/minimize_all_windows_in_space_except_focused.py
+shift + cmd - s : yabai-manager-cli windows --minimize --except_focus
 
 # deminimize all minimized windows back to the focused window
-shift + cmd - w : ~/yabai_manager/deminimize_all_windows_in_space_foucus_original.py
+shift + cmd - w : yabai-manager-cli windows --deminimize --refocus
 
-# restart yabai (exits manager --> restarts yabai)
-shift + cmd + alt - r : echo "q" | nc localhost 22118 && yabai --restart-service
+# restart yabai and yabai manager (exits manager --> restarts yabai)
+shift + cmd + alt - r : yabai-manager-cli --quitGUI && yabai --restart-service
+
+# quit yabai and yabai manager (exits manager --> stops yabai)
+shift + cmd + alt - q : yabai-manager-cli --quitGUI && yabai --stop-service
