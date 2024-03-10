@@ -1,9 +1,9 @@
-import utils
+from . import utils
 import argparse
 
 def main():
     parser = argparse.ArgumentParser(description='Yabai manager CLI')
-    subparsers = parser.add_subparsers()
+    subparsers = parser.add_subparsers(dest='command', help='sub-command help')
 
     parser.add_argument('--version', action='version', version='%(prog)s 1.0')
     parser.add_argument('--startGUI', action='store_true', default=False, help='')
@@ -21,8 +21,6 @@ def main():
     sub_parser_space.add_argument('--float2max', '-mx', action='store_true', default=False, help='')
 
     args = parser.parse_args()
-    args_windows = sub_parser_windows.parse_args()
-    args_space = sub_parser_space.parse_args()
 
     # GUI commands
     if args.startGUI:
@@ -38,11 +36,16 @@ def main():
         mgr.run()
 
     # windows commands
-    if args_windows.deminimize:
-        utils.deminimize_all_windows_in_space(args_windows.refocus)
+    if args.command == 'windows':
+        if args.deminimize:
+            utils.deminimize_all_windows_in_space(args.refocus)
+        if args.minimize:
+            utils.minimize_all_windows_in_space(args.except_focus)
 
-    if args_windows.minimize:
-        utils.minimize_all_windows_in_space(args_windows.except_focus)
+    # space commands
+    if args.command == 'space':
+        if args.toggle:
+            utils.toggle_space_layout(args.float2max)
 
 if __name__ == '__main__':
     main()
