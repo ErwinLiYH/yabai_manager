@@ -2,7 +2,7 @@
 
 A simple python program to show basic status of [Yabai](https://github.com/koekeishiya/yabai) WM in status bar.
 
-![](./imgs/Screenshot%202024-03-10%20at%2019.49.38.png)
+![](./imgs/Screenshot%202024-03-10%20at%2019.49.38.pngƒ)
 
 This program include:
 
@@ -42,13 +42,13 @@ With single display:
     pip install -e .
 
     # optional
-    cp default_config/.skhdrc ~/.skhdrc
-    cp default_config/.yabairc ~/.yabairc
+    cp -a default_config/.skhdrc ~/.skhdrc
+    cp -a default_config/.yabairc ~/.yabairc
 
     #or
 
-    ln -s default_config/.skhdrc ~/.skhdrc
-    ln -s default_config/.yabairc ~/.yabairc
+    ln -s $(pwd)/default_config/.skhdrc ~/.skhdrc
+    ln -s $(pwd)/default_config/.yabairc ~/.yabairc
     ```
 
 ## Settings
