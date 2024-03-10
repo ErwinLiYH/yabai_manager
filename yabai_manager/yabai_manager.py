@@ -2,7 +2,7 @@ import rumps
 import socket
 import threading
 import sys
-from utils import get_info, toggle_space_layout, IP, PORT,\
+from .utils import get_info, toggle_space_layout, IP, PORT,\
 minimize_all_windows_in_space, deminimize_all_windows_in_space
 
 
@@ -30,10 +30,10 @@ class YabaiManager(rumps.App):
                 self.update_title()
             elif message == 'q':
                 print('quit APP')
-                sys.exit()
+                rumps.quit_application()
             else:
                 print('unknown message, quit APP')
-                sys.exit(1)
+                rumps.quit_application()
 
     def update_title(self):
         info = get_info()
