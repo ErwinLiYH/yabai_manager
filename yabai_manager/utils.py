@@ -117,12 +117,14 @@ def toggle_space_layout(float2max=True):
             layernormal_all_windows_in_space()
         send_update_single()
 
-def minimize_all_windows_in_space(except_focus=True):
+def minimize_all_windows_in_space(except_focus=True, left_focus=True):
     @for_all_windows_in_space
     def __minimize_all_windows_in_space(i):
         if (i["has-focus"] == False) or (except_focus == False):
             subprocess.run(['yabai', '-m', 'window', '--minimize', str(i["id"])])
     __minimize_all_windows_in_space()
+    if left_focus:
+        subprocess.run(['yabai' '-m' 'window' '--grid' '1:3:0:0:2:1'])
 
 def deminimize_all_windows_in_space(refocus=True):
     @for_all_windows_in_space
