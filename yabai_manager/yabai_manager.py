@@ -43,11 +43,11 @@ class YabaiManager(rumps.App):
     def toggle_space_to_float(self, _):
         toggle_space_layout()
 
-    @rumps.clicked("Deminimize all windos")
+    @rumps.clicked("Deminimize all windows")
     def deminimize_all_windows(self, _):
         deminimize_all_windows_in_space()
 
-    @rumps.clicked("Minimize all windows")
+    @rumps.clicked("Minimize unfocused windows")
     def minimize_all_windows(self, _):
         minimize_all_windows_in_space()
 
