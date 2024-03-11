@@ -84,6 +84,12 @@ alt - t : yabai -m window --toggle float --grid 5:5:1:1:3:3    # toggle float an
 alt - f : yabai -m window --grid 1:1:0:0:1:1                   # full screen window
 alt - z : yabai -m window --toggle zoom-fullscreen             # toggle zoom fullscreen
 
+alt - a : yabai -m window --grid 1:3:0:0:2:1                   # left half
+alt - d : yabai -m window --grid 1:3:1:0:2:1                   # right half
+
+alt - w : yabai -m window --layer above                        # move window to top layer
+alt - s : yabai -m window --layer normal                       # move window to normal layer
+
 # toggle space layout
 # float -> bsp : change layout, then send update single
 # bsp -> float : change layout, full screen and set sub_layer
@@ -98,6 +104,3 @@ shift + cmd - w : yabai-manager-cli windows --deminimize --refocus
 
 # restart yabai and yabai manager (exits manager --> restarts yabai)
 shift + cmd + alt - r : yabai-manager-cli --quitGUI && yabai --restart-service
-
-# quit yabai and yabai manager (exits manager --> stops yabai)
-shift + cmd + alt - q : yabai-manager-cli --quitGUI && yabai --stop-service
