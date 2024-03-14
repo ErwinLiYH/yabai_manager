@@ -61,16 +61,20 @@ A simple python program to show basic status of [Yabai](https://github.com/koeke
 2. `option - t`: toggle focused window between \<float and center\>/bsp
 3. `option - f`: toggle focused window to full screen(by grid command, used in float layout)
 4. `option - z`: toggle focused window to zoom full screen(used in bsp layout)
-5. `option - w`:
-6. `option - s`:
-7. `option - a`:
-8. `option - d`:
+5. `option - w`: make focused window to topbest
+6. `option - s`: make focused window to normal layer (revert to normal from topbest)
+7. `option - a`: make focused window to left-half
+8. `option - d`: make focused window to right-half
 9. `shift + cmd - t`: toggle layout of screen
     
     float -> bsp : change layout
     bsp -> float : change layout and full screen all windows
 
-10. `shift + cmd + alt - r`: restart Yabai and manager
+10. shift + cmd - w: deminimize all windows in space and refocus to original window
+11. shift + cmd - s: minimize all unfocused windows in space
+12. `shift + cmd + alt - r`: restart Yabai and manager
+
+**GUI interface:**
 
 **CLI interface:**
 
