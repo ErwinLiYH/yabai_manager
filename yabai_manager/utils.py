@@ -128,7 +128,7 @@ def minimize_all_windows_in_space(except_focus=True, left_focus=True):
             subprocess.run(['yabai', '-m', 'window', '--minimize', str(i["id"])])
     __minimize_all_windows_in_space()
     if left_focus:
-        subprocess.run(['yabai' '-m' 'window' '--grid' '1:3:0:0:2:1'])
+        subprocess.run(['yabai', '-m', 'window', '--grid', '1:3:0:0:2:1'])
 
 def deminimize_all_windows_in_space(refocus=True):
     @for_all_windows_in_space
