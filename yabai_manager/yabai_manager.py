@@ -16,7 +16,7 @@ class YabaiManager(rumps.App):
     def listen_to_yabai(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((IP, PORT))
-        s.listen(2)
+        s.listen(10)
 
         while True:
             conn, addr = s.accept()
