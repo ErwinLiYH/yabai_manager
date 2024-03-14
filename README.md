@@ -68,6 +68,7 @@ A simple python program to show basic status of [Yabai](https://github.com/koeke
 9. `shift + cmd - t`: toggle layout of screen
     
     float -> bsp : change layout
+    
     bsp -> float : change layout and full screen all windows
 
 10. shift + cmd - w: deminimize all windows in space and refocus to original window
