@@ -130,7 +130,7 @@ def minimize_all_windows_in_space(except_focus=True, left_focus=True):
     if left_focus:
         subprocess.run(['yabai', '-m', 'window', '--grid', '1:3:0:0:2:1'])
 
-def deminimize_all_windows_in_space(refocus=True):
+def deminimize_all_windows_in_space(refocus=True, full_screen=True):
     @for_all_windows_in_space
     def __deminimize_all_windows_in_space(i):
         if i["is-minimized"] == True:
@@ -141,5 +141,7 @@ def deminimize_all_windows_in_space(refocus=True):
         if focused_id:
             time.sleep(MINIMIZE_ANIME_TIME)
             subprocess.run(['yabai', '-m', 'window', '--focus', str(focused_id)])
+            if full_screen:
+                subprocess.run(['yabai', '-m', 'window', '--grid', '1:1:0:0:1:1'])
         else:
             return 1

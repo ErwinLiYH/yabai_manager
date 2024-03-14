@@ -16,6 +16,7 @@ def main():
     sub_parser_windows.add_argument('--minimize', '-mn', action='store_true', default=False, help='')
     sub_parser_windows.add_argument('--refocus', '-r', action='store_true', default=False, help='')
     sub_parser_windows.add_argument('--except_focus', '-e', action='store_true', default=False, help='')
+    sub_parser_windows.add_argument('--full_screen', '-f', action='store_true', default=False, help='')
     
     sub_parser_space = subparsers.add_parser('space', help='toggle space layout')
     sub_parser_space.add_argument('--toggle', '-t', action='store_true', default=False, help='')
@@ -39,7 +40,7 @@ def main():
     # windows commands
     if args.command == 'windows':
         if args.deminimize:
-            utils.deminimize_all_windows_in_space(args.refocus)
+            utils.deminimize_all_windows_in_space(args.refocus, args.full_screen)
         if args.minimize:
             utils.minimize_all_windows_in_space(args.except_focus)
 
