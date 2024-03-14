@@ -103,4 +103,4 @@ shift + cmd - s : yabai-manager-cli windows --minimize --except_focus
 shift + cmd - w : yabai-manager-cli windows --deminimize --refocus
 
 # restart yabai and yabai manager (exits manager --> restarts yabai)
-shift + cmd + alt - r : yabai-manager-cli --quitGUI && yabai --restart-service
+shift + cmd + alt - r : yabai --restart-service
