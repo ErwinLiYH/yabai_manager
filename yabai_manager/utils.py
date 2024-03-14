@@ -35,7 +35,11 @@ def query_displays():
 
 def get_focused_window_id():
     result = subprocess.run(['yabai', '-m', 'query', '--windows', '--window'], capture_output=True, text=True)
-    return json.loads(result.stdout)['id']
+    try:
+        res_id = json.loads(result.stdout)['id']
+    except:
+        res_id = None
+    return res_id
 
 def get_display_number():
     return len(query_displays())
@@ -134,5 +138,8 @@ def deminimize_all_windows_in_space(refocus=True):
     focused_id = get_focused_window_id()
     __deminimize_all_windows_in_space()
     if refocus:
-        time.sleep(MINIMIZE_ANIME_TIME)
-        subprocess.run(['yabai', '-m', 'window', '--focus', str(focused_id)])
+        if focused_id:
+            time.sleep(MINIMIZE_ANIME_TIME)
+            subprocess.run(['yabai', '-m', 'window', '--focus', str(focused_id)])
+        else:
+            return 1

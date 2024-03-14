@@ -45,7 +45,9 @@ class YabaiManager(rumps.App):
 
     @rumps.clicked("Deminimize all windows")
     def deminimize_all_windows(self, _):
-        deminimize_all_windows_in_space()
+        res = deminimize_all_windows_in_space()
+        if res:
+            rumps.notification("Deminimize all windows and refocus", "No originally focused window", "When deminimize all windows and refocus to original window, No originally focused window to refocus.")
 
     @rumps.clicked("Minimize unfocused windows")
     def minimize_all_windows(self, _):
