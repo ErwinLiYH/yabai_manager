@@ -79,4 +79,50 @@ A simple python program to show basic status of [Yabai](https://github.com/koeke
 
 **CLI interface:**
 
+```
+$yabai-manager-cli --help
+
+usage: yabai-manager-cli [-h] [--version] [--startGUI] [--quitGUI] [--restartGUI] {windows,space} ...
+
+Yabai manager CLI
+
+positional arguments:
+  {windows,space}  sub-command help
+    windows        deminimize/minimize all windows in space
+    space          toggle space layout
+
+options:
+  -h, --help       show this help message and exit
+  --version        show version
+  --startGUI       start yabai manager GUI
+  --quitGUI        quit yabai manager GUI
+  --restartGUI     restart yabai manager GUI
+```
+
+```
+$yabai-manager-cli windows --help
+
+usage: yabai-manager-cli windows [-h] [--deminimize] [--minimize] [--refocus] [--except_focus] [--full_screen] [--left_focus]
+
+options:
+  -h, --help          show this help message and exit
+  --deminimize, -dm   deminimize all windows in space
+  --minimize, -mn     minimize all windows in space
+  --refocus, -r       refocus the last focused window when deminimizing all windows in space
+  --except_focus, -e  except the focused window when minimizing all windows in space
+  --full_screen, -f   full screen all windows when deminimizing all windows in space
+  --left_focus, -l    left focus the last focused window when minimizing all windows in space
+```
+
+```
+$yabai-manager-cli space --help
+
+usage: yabai-manager-cli space [-h] [--toggle] [--float2max]
+
+options:
+  -h, --help        show this help message and exit
+  --toggle, -t      toggle space layout
+  --float2max, -mx  flotating windows to max when toggling space layout
+```
+
 **Customize status bar:**
