@@ -11,7 +11,7 @@ def main():
     parser.add_argument('--quitGUI', action='store_true', default=False, help='quit yabai manager GUI')
     parser.add_argument('--restartGUI', action='store_true', default=False, help='restart yabai manager GUI')
 
-    sub_parser_windows = subparsers.add_parser('windows', help='deminimize all windows in space')
+    sub_parser_windows = subparsers.add_parser('windows', help='deminimize/minimize all windows in space')
     sub_parser_windows.add_argument('--deminimize', '-dm', action='store_true', default=False, help='deminimize all windows in space')
     sub_parser_windows.add_argument('--minimize', '-mn', action='store_true', default=False, help='minimize all windows in space')
     sub_parser_windows.add_argument('--refocus', '-r', action='store_true', default=False, help='refocus the last focused window when deminimizing all windows in space')
