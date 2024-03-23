@@ -1,7 +1,7 @@
 import rumps
 import socket
 import threading
-import sys
+import Kkit
 from .utils import get_info, toggle_space_layout, IP, PORT,\
 minimize_all_windows_in_space, deminimize_all_windows_in_space
 
@@ -35,6 +35,7 @@ class YabaiManager(rumps.App):
                 print('unknown message, quit APP')
                 rumps.quit_application()
 
+    @Kkit.retry(3)
     def update_title(self):
         info = get_info()
         self.title = info
