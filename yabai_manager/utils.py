@@ -2,10 +2,12 @@ import subprocess
 import json
 from functools import wraps
 import time
+from Kkit import timeout
 
 IP = 'localhost'
 PORT = 22118
 MINIMIZE_ANIME_TIME = 0.5
+
 
 # Functions to send signal to the rumps app to update the title-------------------------------------
 
@@ -30,7 +32,7 @@ def query_spaces():
     return json.loads(result.stdout)
 
 def query_displays():
-    result = subprocess.run(['yabai', '-m', 'query', '--displays'], capture_output=True, text=True)
+    result = timeout.run_command_with_timeout(['yabai', '-m', 'query', '--displays'], retry_times=5, capture_output=True, text=True)
     return json.loads(result.stdout)
 
 def get_focused_window_id():
