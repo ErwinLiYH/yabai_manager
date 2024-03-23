@@ -22,10 +22,10 @@ class YabaiManager(rumps.App):
         while True:
             LOGGER.info('Waiting for connection')
             conn, addr = s.accept()
-            LOGGER.info('Connected by', addr)
+            LOGGER.info(f'Connected by {addr}')
             data = conn.recv(1)
             message = data.decode('utf-8')
-            LOGGER.info('Received', message)
+            LOGGER.info(f'Received {message}')
             conn.close()
             if message == 'u':
                 self.update_title()
