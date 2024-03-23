@@ -2,6 +2,7 @@ import rumps
 import socket
 import threading
 import Kkit
+from . import LOGGER
 from .utils import get_info, toggle_space_layout, IP, PORT,\
 minimize_all_windows_in_space, deminimize_all_windows_in_space
 
@@ -19,23 +20,21 @@ class YabaiManager(rumps.App):
         s.listen(10)
 
         while True:
+            LOGGER.info('Waiting for connection')
             conn, addr = s.accept()
-            print('Connected by', addr)
+            LOGGER.info('Connected by', addr)
             data = conn.recv(1)
             message = data.decode('utf-8')
-            print('Received', message)
+            LOGGER.info('Received', message)
             conn.close()
             if message == 'u':
-                print('update title')
                 self.update_title()
             elif message == 'q':
-                print('quit APP')
                 rumps.quit_application()
             else:
-                print('unknown message, quit APP')
                 rumps.quit_application()
 
-    @Kkit.retry(3)
+    @Kkit.retry(3, record=LOGGER)
     def update_title(self):
         info = get_info()
         self.title = info
