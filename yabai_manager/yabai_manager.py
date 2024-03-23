@@ -34,7 +34,7 @@ class YabaiManager(rumps.App):
             else:
                 rumps.quit_application()
 
-    @Kkit.retry(3, record=LOGGER)
+    @Kkit.retry(3, raise_exception=LOGGER, record_retry=LOGGER)
     def update_title(self):
         info = get_info()
         self.title = info
